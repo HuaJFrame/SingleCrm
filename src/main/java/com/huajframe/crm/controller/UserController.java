@@ -7,12 +7,15 @@ import com.huajframe.crm.model.UserModel;
 import com.huajframe.crm.service.UserService;
 import com.huajframe.crm.utils.LoginUserUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -45,5 +48,15 @@ public class UserController extends BaseController {
     @RequestMapping("user/toPasswordPage")
     public String toPasswordPage(){
         return "user/password";
+    }
+
+    /**
+     * 查询所有的销售人员
+     * @return
+     */
+    @GetMapping("/user/queryAllSales")
+    @ResponseBody
+    public List<Map<String, Object>> queryAllSales(){
+        return userService.queryAllSales();
     }
 }

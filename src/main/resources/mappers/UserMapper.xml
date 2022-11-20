@@ -29,6 +29,7 @@
       where
         is_valid = 1 and user_name = #{userName}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
@@ -146,4 +147,22 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAllSales" resultType="java.util.Map">
+    select
+        u.id,
+        u.user_name as uname
+    from
+        t_user u,
+        t_user_role ur,
+        t_role r
+    where
+        u.id = ur.user_id
+    and
+        r.id = ur.role_id
+    and
+        r.role_name = '销售'
+    and
+        u.is_valid = 1
+  </select>
 </mapper>

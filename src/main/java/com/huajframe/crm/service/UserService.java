@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 用户业务层
  * @author Hua JFarmer
@@ -87,5 +90,13 @@ public class UserService extends BaseService<User, Integer> {
         AssertUtil.isTrue(!newPassword.equals(confirmPassword), "新密码不一致");
         AssertUtil.isTrue(oldPassword.equals(newPassword), "新密码不能和旧密码相同");
         AssertUtil.isTrue(!Md5Util.encode(oldPassword).equals(user.getUserPwd()), "旧密码不正确");
+    }
+
+    /**
+     * 查询所有的销售人员
+     * @return
+     */
+    public List<Map<String, Object>> queryAllSales(){
+        return userMapper.queryAllSales();
     }
 }

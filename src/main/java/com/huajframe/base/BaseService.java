@@ -60,7 +60,7 @@ public abstract class BaseService<T,ID> {
 
 
     /**
-     * 多条件查询
+     * 条件查询
      * @param baseQuery
      * @return
      */
@@ -118,7 +118,7 @@ public abstract class BaseService<T,ID> {
         PageInfo<T> pageInfo =new PageInfo<T>(selectByParams(baseQuery));
         result.put("count",pageInfo.getTotal());
         result.put("data",pageInfo.getList());
-        result.put("code",0);
+        result.put("code", 200);
         result.put("msg","");
         return result;
     }

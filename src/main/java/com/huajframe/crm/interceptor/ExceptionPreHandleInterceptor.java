@@ -17,7 +17,7 @@ public class ExceptionPreHandleInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
-            //不是HandlerMethod，则表示返回错误试图
+            //不是HandlerMethod，允许通过
             return true;
         }
 

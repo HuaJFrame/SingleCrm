@@ -13,7 +13,7 @@ public class UserIDBase64 {
      * @param encodedUserID 加密后的用户id
      * @return
      */
-	public static Integer decoderUserID(String encodedUserID)  {
+	public static Integer decoderUserID(String encodedUserID) {
 		if (StringUtils.isEmpty(encodedUserID)) {
 			return null;
 		}
