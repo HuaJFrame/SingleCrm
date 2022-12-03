@@ -5,7 +5,7 @@ layui.use(['table','layer'],function(){
     //机会数据列表展示
     var  tableIns = table.render({
         elem: '#saleChanceList',
-        url : ctx+'/sale_chance/list?state=1&flag=1',
+        url : path+'/sale_chance/list?state=1&flag=1',
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -13,6 +13,9 @@ layui.use(['table','layer'],function(){
         limit : 10,
         toolbar: "#toolbarDemo",
         id : "saleChanceListTable",
+        response: {
+            statusCode: 200 //规定成功的状态码，默认：0
+        },
         cols : [[
             {type: "checkbox", fixed:"center"},
             {field: "id", title:'编号',fixed:"true"},
@@ -84,7 +87,7 @@ layui.use(['table','layer'],function(){
             type:2,
             area:["700px","500px"],
             maxmin:true,
-            content:ctx+"/cus_dev_plan/toCusDevPlanDataPage?sid="+sid
+            content:path+"/cus_dev_plan/toCusDevPlanDataPage?sid="+sid
         })
     }
 

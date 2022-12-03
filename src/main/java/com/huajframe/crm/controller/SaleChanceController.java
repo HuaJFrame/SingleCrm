@@ -6,6 +6,7 @@ import com.huajframe.crm.query.SaleChanceQuery;
 import com.huajframe.crm.service.SaleChanceService;
 import com.huajframe.crm.service.UserService;
 import com.huajframe.crm.utils.LoginUserUtil;
+import com.huajframe.crm.utils.UserIDBase64;
 import com.huajframe.crm.vo.SaleChance;
 import com.huajframe.crm.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +44,15 @@ public class SaleChanceController extends BaseController {
     /**
      * 营销管理数据查询
      * @param saleChanceQuery
+     * @param flag 判断请求是来自客户开发还是营销机会管理
      * @return
      */
     @RequestMapping("/list")
     @ResponseBody
-    public Map<String, Object> querySaleChancesByParams(SaleChanceQuery saleChanceQuery){
+    public Map<String, Object> querySaleChancesByParams(SaleChanceQuery saleChanceQuery, Integer flag, HttpServletRequest request){
+        if(flag != null && flag == 1){
+            saleChanceQuery.setAssignMan(LoginUserUtil.releaseUserIdFromCookie(request));
+        }
         return saleChanceService.queryByParamsForTable(saleChanceQuery);
     }
 
@@ -94,10 +99,22 @@ public class SaleChanceController extends BaseController {
         return success("机会数据更新成功");
     }
 
+    /**
+     * 删除营销机会
+     * @param ids 营销机会id集合
+     * @return
+     */
     @PostMapping("/delete")
     @ResponseBody
     public ResultInfo deleteSaleChance(Integer[] ids){
         saleChanceService.deleteSaleChanceByIds(ids);
         return success("机会数据删除成功");
+    }
+
+    @RequestMapping("/updateSaleChanceDevResult")
+    @ResponseBody
+    public ResultInfo updateSaleChanceDevResult(Integer id, Integer devResult){
+        saleChanceService.updateSaleChanceDevResult(id, devResult);
+        return success("开发状态更新成功");
     }
 }

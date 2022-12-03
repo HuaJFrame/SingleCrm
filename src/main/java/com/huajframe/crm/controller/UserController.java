@@ -2,7 +2,6 @@ package com.huajframe.crm.controller;
 
 import com.huajframe.base.BaseController;
 import com.huajframe.base.ResultInfo;
-import com.huajframe.crm.exceptions.ParamsException;
 import com.huajframe.crm.model.UserModel;
 import com.huajframe.crm.service.UserService;
 import com.huajframe.crm.utils.LoginUserUtil;
@@ -19,12 +18,13 @@ import java.util.Map;
 
 
 @Controller
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
     @Resource
     private UserService userService;
 
-    @PostMapping("user/login")
+    @PostMapping("/login")
     @ResponseBody
     public ResultInfo login(String userName, String userPwd){
         ResultInfo resultInfo = new ResultInfo();
@@ -33,7 +33,7 @@ public class UserController extends BaseController {
         return success("用户登录成功",userModel);
     }
 
-    @PostMapping("/user/updatePassword")
+    @PostMapping("/updatePassword")
     @ResponseBody
     public ResultInfo updatePassword(HttpServletRequest request, String oldPassword,
                                      String newPassword, String confirmPassword){
@@ -45,7 +45,7 @@ public class UserController extends BaseController {
      * 跳转到修改密码页
      * @return
      */
-    @RequestMapping("user/toPasswordPage")
+    @RequestMapping("/toPasswordPage")
     public String toPasswordPage(){
         return "user/password";
     }
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
      * 查询所有的销售人员
      * @return
      */
-    @GetMapping("/user/queryAllSales")
+    @GetMapping("/queryAllSales")
     @ResponseBody
     public List<Map<String, Object>> queryAllSales(){
         return userService.queryAllSales();

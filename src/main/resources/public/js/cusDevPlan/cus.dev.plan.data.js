@@ -5,7 +5,7 @@ layui.use(['table','layer'],function(){
     //计划项数据展示
     var  tableIns = table.render({
         elem: '#cusDevPlanList',
-        url : ctx+'/cus_dev_plan/list?sid='+$("input[name='id']").val(),
+        url : path+'/cus_dev_plan/list?sid='+$("input[name='id']").val(),
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -13,6 +13,9 @@ layui.use(['table','layer'],function(){
         limit : 10,
         toolbar: "#toolbarDemo",
         id : "cusDevPlanListTable",
+        response: {
+            statusCode: 200 //规定成功的状态码，默认：0
+        },
         cols : [[
             {type: "checkbox", fixed:"center"},
             {field: "id", title:'编号',fixed:"true"},
@@ -47,7 +50,7 @@ layui.use(['table','layer'],function(){
             openAddOrUpdateCusDevPlanDialog(obj.data.id);
         }else if(layEvent === "del"){
             layer.confirm("确认删除当前记录?",{icon: 3, title: "客户开发计划管理"},function (index) {
-                $.post(ctx+"/cus_dev_plan/delete",{id:obj.data.id},function (data) {
+                $.post(path+"/cus_dev_plan/delete",{id:obj.data.id},function (data) {
                     if(data.code==200){
                         layer.msg("删除成功");
                         tableIns.reload();
@@ -63,7 +66,7 @@ layui.use(['table','layer'],function(){
 
     function openAddOrUpdateCusDevPlanDialog(id) {
         var title="计划项管理管理-添加计划项";
-        var url=ctx+"/cus_dev_plan/addOrUpdateCusDevPlanPage?sid="+$("input[name='id']").val();
+        var url=path+"/cus_dev_plan/addOrUpdateCusDevPlanPage?sid="+$("input[name='id']").val();
         if(id){
             title="计划项管理管理-更新计划项";
             url=url+"&id="+id;
@@ -81,7 +84,7 @@ layui.use(['table','layer'],function(){
 
     function updateSaleChanceDevResult(sid,devResult) {
         layer.confirm("确认更新机会数据状态?",{icon: 3, title: "客户开发计划管理"},function (index) {
-            $.post(ctx+"/sale_chance/updateSaleChanceDevResult",{
+            $.post(path+"/sale_chance/updateSaleChanceDevResult",{
                 id:sid,
                 devResult:devResult
             },function (data) {

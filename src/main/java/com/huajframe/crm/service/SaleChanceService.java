@@ -63,7 +63,7 @@ public class SaleChanceService extends BaseService<SaleChance, Integer> {
     }
 
     /**
-     * 修改机会信息
+     * 修改营销机会信息
      * @param saleChance 前端传入实体
      */
     @Transactional(rollbackFor = Exception.class)
@@ -108,5 +108,20 @@ public class SaleChanceService extends BaseService<SaleChance, Integer> {
     public void deleteSaleChanceByIds(Integer[] ids) {
         AssertUtil.isTrue(ids == null || ids.length == 0, "请选择待删除的机会数据!");
         AssertUtil.isTrue(deleteBatch(ids) < ids.length, "机会数据删除失败");
+    }
+
+    /**
+     * 更新营销机会的开发状态
+     * @param id 营销机会id
+     * @param devResult 开发状态
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateSaleChanceDevResult(Integer id, Integer devResult){
+        AssertUtil.isTrue(null == id, "待更新记录不存在！");
+        SaleChance saleChance = selectByPrimaryKey(id);
+        AssertUtil.isTrue(null == saleChance, "待更新记录不存在！");
+        saleChance.setDevResult(devResult);
+        AssertUtil.isTrue(updateByPrimaryKeySelective(saleChance) < 1,
+                "机会数据更新失败");
     }
 }

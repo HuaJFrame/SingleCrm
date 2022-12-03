@@ -233,8 +233,14 @@
             <if test="createMan != null and createMan != ''">
                 and create_man = #{createMan}
             </if>
-            <if test="state != null and state != ''">
+            <if test="state != null">
                 and `state` = #{state}
+            </if>
+            <if test="assignMan != null">
+                and `assign_man` = #{assignMan}
+            </if>
+            <if test="devResult != null">
+                and `dev_result` = #{devResult}
             </if>
         </where>
     </select>
